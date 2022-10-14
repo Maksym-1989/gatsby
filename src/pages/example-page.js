@@ -9,6 +9,7 @@ import Seo from '../components/Seo';
 
 const ExamplePage = ({ data }) => {
   const mdxContent = data.allMdx.nodes;
+  console.log(mdxContent);
 
   return (
     <Layout>
@@ -34,6 +35,10 @@ const ExamplePage = ({ data }) => {
                 <p>{item.frontmatter.language}</p>
                 <p>{item.frontmatter.name}</p>
                 <p>{item.frontmatter.description}</p>
+                <div
+                  className="post-body"
+                  dangerouslySetInnerHTML={{ __html: item.body }}
+                />
               </li>
             ))}
           </ul>
@@ -60,6 +65,7 @@ export const query = graphql`
           name
           description
         }
+        body
       }
     }
     locales: allLocale(filter: { language: { eq: $language } }) {
